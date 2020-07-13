@@ -1,0 +1,78 @@
+<html> 
+<head>
+	<title>Task-Project</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+    crossorigin="anonymous">
+    <link href="stylesheet.css" rel="stylesheet" type="text/css" />
+</head>
+<body> 
+<div class="container">
+<div class="jumbotron p-4 p-md-5 text-white rounded bg-dark">
+ <h1>Things to-Do</h1>
+
+ <input type="text" name="new" id="new" placeholder="New Task">
+ <br>
+ <br>
+ <button type="button" onClick="addNew();" class="btn btn-secondary my-2">Save</button>
+</div>
+</div>
+<hr>
+<div class="container">
+	<div class="jumbotron p-4 p-md-5 text-white rounded bg-dark">
+ <h3>Current Tasks</h3>
+ <ul id="tasks">
+ </ul>
+ <button type="button" onClick="clearAll();">Clear All</button>
+</div>
+</div>
+<hr>
+ <script>
+ 	function init() {
+ 		let list = document.getElementById("tasks");
+ 		list.onclick = update;
+ 		}
+ 	
+ 	function addNew() {
+ 		let newTask = document.getElementById("new");
+ 		if(newTask.value != ''){
+ 			let list = document.getElementById("tasks");
+ 		let li = document.createElement("li");
+
+ 		li.innerHTML = `<span class="delete">&times;</span><input type="checkbox" class="done"> 
+ 		<label>${newTask.value}</label>`;
+ 		list.appendChild(li);
+
+ 		}
+ 		
+ 		newTask.value = null;
+ 	}
+ 	function update(event) {
+ 		if (event.target.className == "delete") {
+ 			console.log("delete function called")
+ 			let task = event.target.parentNode;
+ 			let list = task.parentNode;
+ 			list.removeChild(task);
+ 	     }
+
+ 		if (event.target.className == "done"){
+ 			let checkbox = event.target;
+ 			let task = checkbox.nextSibling.nextSibling;
+ 			if (checkbox.checked) {
+ 				task.style.textDecoration = "line-through";
+ 			}
+ 			else{
+ 				task.style.textDecoration = "none";
+ 			}
+ 		}
+ 	}
+ 	function clearAll(){
+ 		let list = document.getElementById("tasks");
+ 		list.innerHTML = null;
+ 	}
+	 init();
+
+
+ </script>
+
+</body>
+</html>
